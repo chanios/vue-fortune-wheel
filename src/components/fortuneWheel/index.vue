@@ -200,8 +200,8 @@ export default Vue.extend({
     }
   },
   watch: {
-    prizeId (newVal): void {
-      if (!this.isRotating) return
+    prizeId (newVal): string {
+      if (!this.isRotating) return newVal
       let newAngle = this.getTargetDeg(newVal)
       if (this.angleBase < 0) newAngle -= 360
       const prevEndDeg = this.rotateEndDeg
@@ -213,6 +213,7 @@ export default Vue.extend({
         nowEndDeg += -360 - angle
       }
       this.rotateEndDeg = nowEndDeg
+      return newVal
     },
     prizes (newVal: PrizeConfig[]): void {
       newVal.filter(p => p.contentType === 'image').forEach(element => {
